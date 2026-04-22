@@ -1,194 +1,996 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Sergio Puche | Administrador de Sistemas TI e Infraestructura</title>
-    <meta name="description" content="Especialista en administración de sistemas Linux/Windows, redes y ciberseguridad. Experto en virtualización avanzada y entornos Cloud híbridos.">
-    
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://PucheMilan.github.io/">
-    <meta property="og:title" content="Sergio Puche | Administrador de Sistemas TI">
-    <meta property="og:description" content="Profesional IT en Correos Express especializado en sistemas críticos, seguridad perimetral y entornos Cloud.">
-    <meta property="og:image" content="https://PucheMilan.github.io/thumbnail-portfolio.jpg">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sergio Puche | SysAdmin & DevSecOps</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── VARIABLES ─────────────────────────────────────── */
+    :root {
+      --bg:           #0b0e14;
+      --bg-surface:   #111520;
+      --bg-card:      #141927;
+      --bg-hover:     #1a2035;
+      --border:       #1e2d45;
+      --border-glow:  #2a4a7f;
+      --accent:       #3b82f6;
+      --accent-dim:   #1d4ed8;
+      --accent-glow:  rgba(59,130,246,.15);
+      --green:        #22c55e;
+      --green-dim:    rgba(34,197,94,.12);
+      --yellow:       #f59e0b;
+      --red:          #ef4444;
+      --text-primary: #e2e8f0;
+      --text-secondary:#94a3b8;
+      --text-muted:   #475569;
+      --mono:         'JetBrains Mono', monospace;
+      --sans:         'Inter', sans-serif;
+      --radius:       6px;
+      --radius-lg:    10px;
+      --transition:   .2s cubic-bezier(.4,0,.2,1);
+    }
 
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖥️</text></svg>">
-    
-    <style>
-        :root {
-            --bg: #0d1117;
-            --panel: #161b22;
-            --border: #30363d;
-            --text-main: #c9d1d9;
-            --text-bright: #f0f6fc;
-            --accent: #58a6ff; 
-            --cmd: #7ee787;   
-        }
-        
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: var(--bg); 
-            color: var(--text-main); 
-            line-height: 1.6; 
-            margin: 0; 
-            padding: 20px; 
-        }
+    /* ─── RESET ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    img { max-width: 100%; }
 
-        .terminal { 
-            max-width: 1000px; 
-            margin: 30px auto; 
-            background: var(--panel); 
-            border: 1px solid var(--border); 
-            border-radius: 8px; 
-            padding: 35px; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6); 
-        }
+    /* ─── SCROLLBAR ──────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border-glow); border-radius: 2px; }
 
-        .prompt { color: var(--accent); font-weight: bold; font-family: monospace; }
-        .command { color: var(--cmd); font-family: monospace; }
-        
-        h1 { 
-            color: var(--text-bright); 
-            font-size: 2.5rem; 
-            margin: 10px 0; 
-            border-bottom: 1px solid var(--border); 
-            padding-bottom: 10px; 
-        }
+    /* ─── NOISE OVERLAY ──────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: .4;
+    }
 
-        .job-title { 
-            color: var(--accent); 
-            font-size: 1.2rem; 
-            font-weight: bold; 
-            margin-bottom: 20px; 
-            display: block; 
-        }
+    /* ─── NAV ────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(11,14,20,.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      height: 56px;
+      display: flex; align-items: center;
+    }
+    .nav-inner {
+      width: 100%; max-width: 1100px; margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem;
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: .95rem; font-weight: 700;
+      color: var(--accent);
+      letter-spacing: .05em;
+      white-space: nowrap;
+    }
+    .nav-logo span { color: var(--text-secondary); font-weight: 300; }
 
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 20px; 
-            margin: 20px 0; 
-        }
+    /* hamburger */
+    .nav-toggle {
+      display: none;
+      flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block; width: 22px; height: 2px;
+      background: var(--text-secondary);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-        .card { 
-            border: 1px solid var(--border); 
-            padding: 20px; 
-            border-radius: 6px; 
-            background: rgba(255,255,255,0.03); 
-        }
+    .nav-links {
+      display: flex; align-items: center; gap: .25rem;
+    }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: .75rem; font-weight: 400;
+      color: var(--text-secondary);
+      padding: .4rem .75rem;
+      border-radius: var(--radius);
+      transition: var(--transition);
+      letter-spacing: .04em;
+    }
+    .nav-links a:hover { color: var(--accent); background: var(--accent-glow); }
 
-        .card h3 { 
-            margin-top: 0; 
-            color: var(--text-bright); 
-            border-bottom: 1px solid var(--border); 
-            padding-bottom: 8px; 
-            font-size: 1.1rem; 
-        }
+    .nav-status {
+      display: flex; align-items: center; gap: .5rem;
+      font-family: var(--mono); font-size: .7rem;
+      color: var(--green); white-space: nowrap;
+    }
+    .nav-status::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+      animation: pulse 2s infinite;
+    }
 
-        /* --- AQUÍ ESTÁ EL ARREGLO DE LAS ETIQUETAS --- */
-        .tags-wrapper {
-            display: flex;
-            flex-wrap: wrap; /* Esto hace que bajen de línea */
-            gap: 8px;
-        }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .4; }
+    }
 
-        .tag { 
-            background: #21262d; 
-            border: 1px solid var(--border); 
-            color: var(--accent); 
-            padding: 4px 10px; 
-            border-radius: 4px; 
-            font-size: 0.85rem; 
-            
-            /* Para que el texto no se salga nunca */
-            white-space: normal; 
-            text-align: center;
-            max-width: 100%;
-        }
-        /* --------------------------------------------- */
+    /* ─── HERO ───────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      padding: 100px 1.5rem 4rem;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .hero-grid-bg {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 20%, transparent 70%);
+      opacity: .25;
+    }
+    .hero-glow {
+      position: absolute; top: -20%; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(59,130,246,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 1100px; margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-family: var(--mono); font-size: .7rem;
+      color: var(--accent);
+      background: var(--accent-glow);
+      border: 1px solid rgba(59,130,246,.3);
+      padding: .35rem .85rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+      letter-spacing: .08em;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 6px var(--accent);
+      animation: pulse 2s infinite;
+    }
+    .hero h1 {
+      font-family: var(--mono);
+      font-size: clamp(2.4rem, 7vw, 5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      color: var(--text-primary);
+      margin-bottom: .5rem;
+    }
+    .hero h1 .cursor {
+      display: inline-block;
+      width: 3px; height: .9em;
+      background: var(--accent);
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-        .contact-link { color: var(--cmd); text-decoration: none; font-weight: bold; }
-        ul { list-style-type: "→ "; padding-left: 20px; }
-        li { margin-bottom: 8px; }
-        .date { color: #8b949e; font-size: 0.9rem; font-weight: bold; }
-        .section-header { 
-            border-left: 4px solid var(--cmd); 
-            padding-left: 15px; 
-            margin-top: 40px; 
-            color: var(--text-bright); 
-            font-size: 1.5rem; 
-        }
+    .hero-role {
+      font-family: var(--mono); font-size: clamp(.85rem, 2vw, 1rem);
+      color: var(--accent); margin-bottom: 1.5rem;
+      letter-spacing: .05em;
+    }
+    .hero-desc {
+      font-size: clamp(.9rem, 2.5vw, 1.1rem);
+      color: var(--text-secondary);
+      max-width: 560px;
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+    .hero-desc strong { color: var(--text-primary); font-weight: 500; }
+    .hero-actions {
+      display: flex; flex-wrap: wrap; gap: .75rem;
+      margin-bottom: 3rem;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-family: var(--mono); font-size: .78rem; font-weight: 500;
+      padding: .65rem 1.25rem;
+      border-radius: var(--radius);
+      border: 1px solid;
+      cursor: pointer;
+      transition: var(--transition);
+      letter-spacing: .04em;
+    }
+    .btn-primary {
+      background: var(--accent); border-color: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--accent-dim); border-color: var(--accent-dim); box-shadow: 0 0 20px rgba(59,130,246,.4); }
+    .btn-ghost {
+      background: transparent; border-color: var(--border-glow);
+      color: var(--text-secondary);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
 
-        /* Ajuste para móviles muy pequeños */
-        @media (max-width: 480px) {
-            h1 { font-size: 1.8rem; }
-            .terminal { padding: 20px; }
-        }
-    </style>
+    /* stats */
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      max-width: 560px;
+    }
+    .stat {
+      background: var(--bg-card);
+      padding: 1rem .75rem;
+      text-align: center;
+    }
+    .stat-value {
+      font-family: var(--mono); font-size: 1.4rem; font-weight: 700;
+      color: var(--accent);
+      display: block;
+    }
+    .stat-label {
+      font-family: var(--mono); font-size: .6rem;
+      color: var(--text-muted); letter-spacing: .06em;
+      text-transform: uppercase;
+      line-height: 1.3;
+      margin-top: .2rem;
+    }
+
+    /* ─── SECTION LAYOUT ─────────────────────────────────── */
+    section { padding: 5rem 1.5rem; position: relative; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-header {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .section-num {
+      font-family: var(--mono); font-size: .7rem;
+      color: var(--accent); letter-spacing: .1em;
+    }
+    .section-title {
+      font-family: var(--mono); font-size: clamp(1.3rem, 4vw, 1.8rem);
+      font-weight: 700; letter-spacing: -.01em;
+    }
+    .section-line {
+      flex: 1; height: 1px; background: var(--border);
+    }
+
+    /* ─── PROYECTO ───────────────────────────────────────── */
+    #proyecto { background: var(--bg-surface); }
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .project-card:hover { border-color: var(--border-glow); box-shadow: 0 0 40px rgba(59,130,246,.06); }
+
+    .project-top {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .project-info { padding: 2.5rem; border-right: 1px solid var(--border); }
+    .project-diagram { padding: 2rem; display: flex; align-items: center; justify-content: center; }
+
+    .project-label {
+      font-family: var(--mono); font-size: .65rem;
+      color: var(--accent); letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: .75rem;
+    }
+    .project-title {
+      font-family: var(--mono); font-size: clamp(1.2rem, 3vw, 1.6rem);
+      font-weight: 700; margin-bottom: 1rem;
+      letter-spacing: -.01em;
+    }
+    .project-badge {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-family: var(--mono); font-size: .65rem;
+      background: var(--green-dim); color: var(--green);
+      border: 1px solid rgba(34,197,94,.25);
+      padding: .25rem .65rem; border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+    .project-badge::before { content: '▶'; font-size: .5rem; }
+    .project-desc {
+      font-size: .9rem; color: var(--text-secondary);
+      line-height: 1.7; margin-bottom: 1.5rem;
+    }
+    .tech-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: 1.5rem; }
+    .tag {
+      font-family: var(--mono); font-size: .68rem;
+      background: var(--bg-hover); border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: .25rem .6rem; border-radius: var(--radius);
+      transition: var(--transition);
+    }
+    .tag:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+
+    /* diagram */
+    .arch-diagram {
+      font-family: var(--mono); font-size: .72rem;
+      color: var(--text-secondary);
+      width: 100%;
+    }
+    .arch-box {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: .6rem .9rem;
+      text-align: center;
+      background: var(--bg-hover);
+      margin: .35rem 0;
+      transition: var(--transition);
+    }
+    .arch-box:hover { border-color: var(--accent); color: var(--accent); }
+    .arch-box.accent { border-color: var(--border-glow); color: var(--accent); background: var(--accent-glow); }
+    .arch-box.green  { border-color: rgba(34,197,94,.3); color: var(--green); background: var(--green-dim); }
+    .arch-arrow {
+      text-align: center; color: var(--text-muted); font-size: .8rem;
+      line-height: 1.2;
+    }
+    .arch-row { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem; }
+    .arch-root {
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius);
+      padding: .8rem;
+      margin-top: .35rem;
+      background: rgba(30,45,69,.3);
+    }
+    .arch-root-label {
+      font-size: .58rem; color: var(--text-muted);
+      letter-spacing: .1em; text-transform: uppercase;
+      margin-bottom: .4rem;
+      text-align: center;
+    }
+
+    /* ─── STACK ──────────────────────────────────────────── */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: .75rem;
+    }
+    .stack-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1rem;
+      text-align: center;
+      transition: var(--transition);
+      cursor: default;
+    }
+    .stack-card:hover {
+      border-color: var(--accent);
+      background: var(--bg-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.3);
+    }
+    .stack-icon { font-size: 1.8rem; margin-bottom: .5rem; line-height: 1; }
+    .stack-name {
+      font-family: var(--mono); font-size: .78rem; font-weight: 500;
+      color: var(--text-primary); margin-bottom: .2rem;
+    }
+    .stack-sub { font-size: .68rem; color: var(--text-muted); }
+
+    /* ─── EXPERIENCIA ────────────────────────────────────── */
+    #experiencia { background: var(--bg-surface); }
+    .exp-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: var(--transition);
+    }
+    .exp-card:hover { border-left-color: var(--green); box-shadow: 0 0 30px rgba(59,130,246,.05); }
+    .exp-card.homelab { border-left-color: var(--green); margin-top: 1.25rem; }
+    .exp-card.homelab:hover { border-left-color: var(--accent); }
+    .exp-section-label {
+      font-family: var(--mono); font-size: .65rem;
+      color: var(--text-muted); letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: .6rem;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .exp-section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .exp-group { display: flex; flex-direction: column; gap: 0; }
+    .exp-sub-items {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .5rem;
+      margin-top: .75rem;
+    }
+    .exp-sub-item {
+      background: var(--bg-hover);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: .75rem 1rem;
+      font-size: .8rem; color: var(--text-secondary);
+    }
+    .exp-sub-item-title {
+      font-family: var(--mono); font-size: .7rem;
+      color: var(--accent); margin-bottom: .3rem;
+      display: flex; align-items: center; gap: .4rem;
+    }
+    .exp-sub-item-title::before { content: '//'; color: var(--text-muted); font-size: .65rem; }
+    .homelab-projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: .6rem;
+      margin-top: .75rem;
+    }
+    .homelab-proj {
+      background: var(--bg-hover);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: .7rem 1rem;
+      transition: var(--transition);
+    }
+    .homelab-proj:hover { border-color: var(--green); background: var(--green-dim); }
+    .homelab-proj-name {
+      font-family: var(--mono); font-size: .75rem; font-weight: 600;
+      color: var(--green); margin-bottom: .25rem;
+    }
+    .homelab-proj-desc { font-size: .72rem; color: var(--text-muted); line-height: 1.4; }
+    @media (max-width: 640px) {
+      .exp-sub-items { grid-template-columns: 1fr; }
+    }
+    .exp-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      flex-wrap: wrap; gap: .75rem;
+      margin-bottom: 1rem;
+    }
+    .exp-company { font-family: var(--mono); font-size: 1rem; font-weight: 700; }
+    .exp-role { font-size: .85rem; color: var(--accent); margin-top: .2rem; }
+    .exp-date {
+      font-family: var(--mono); font-size: .7rem;
+      color: var(--text-muted);
+      background: var(--bg-hover);
+      border: 1px solid var(--border);
+      padding: .3rem .7rem; border-radius: var(--radius);
+      white-space: nowrap;
+    }
+    .exp-items { display: flex; flex-direction: column; gap: .5rem; }
+    .exp-item {
+      display: flex; gap: .75rem;
+      font-size: .875rem; color: var(--text-secondary); line-height: 1.5;
+    }
+    .exp-item::before {
+      content: '▸';
+      color: var(--accent); flex-shrink: 0;
+      font-size: .75rem; margin-top: .1rem;
+    }
+    /* highlight inline sin romper flujo de texto */
+    .hl {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .hl.green {
+      color: var(--green);
+    }
+
+    /* ─── CERTS ──────────────────────────────────────────── */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+    .cert-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+      transition: var(--transition);
+    }
+    .cert-card:hover { border-color: var(--border-glow); background: var(--bg-hover); }
+    .cert-logo {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: .8rem; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .cert-logo.g { background: #1a73e8; color: #fff; }
+    .cert-logo.aws { background: #ff9900; color: #000; font-size: .6rem; }
+    .cert-logo.ibm { background: #0f62fe; color: #fff; }
+    .cert-logo.cisco { background: #1ba0d7; color: #fff; font-size: .6rem; }
+    .cert-name { font-family: var(--mono); font-size: .82rem; font-weight: 500; }
+    .cert-issuer { font-size: .72rem; color: var(--text-muted); margin-top: .15rem; }
+    .cert-check {
+      margin-left: auto;
+      color: var(--green); font-size: .85rem;
+      flex-shrink: 0;
+    }
+
+    /* ─── CONTACTO ───────────────────────────────────────── */
+    #contacto {
+      text-align: center;
+      background: var(--bg-surface);
+    }
+    .contact-terminal {
+      display: inline-block;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.5rem;
+      margin: 2rem auto;
+      max-width: 480px; width: 100%;
+      text-align: left;
+    }
+    .terminal-bar {
+      display: flex; gap: .4rem; margin-bottom: 1.2rem;
+    }
+    .terminal-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .terminal-dot.red { background: #ef4444; }
+    .terminal-dot.yellow { background: #f59e0b; }
+    .terminal-dot.green { background: #22c55e; }
+    .terminal-line {
+      font-family: var(--mono); font-size: .8rem;
+      color: var(--text-secondary); margin-bottom: .5rem;
+    }
+    .terminal-line .prompt { color: var(--green); }
+    .terminal-line .cmd { color: var(--text-primary); }
+    .terminal-line .out { color: var(--accent); }
+
+    .contact-actions {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem;
+      margin-top: 1.5rem;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: center;
+      font-family: var(--mono); font-size: .7rem;
+      color: var(--text-muted);
+    }
+    footer span { color: var(--text-secondary); }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 768px) {
+      /* nav */
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 56px; left: 0; right: 0;
+        background: rgba(11,14,20,.97);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column; align-items: stretch;
+        padding: .75rem 1rem;
+        gap: .25rem;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: .65rem 1rem; border-radius: var(--radius); }
+      .nav-status { display: none; }
+
+      /* hero */
+      .hero { padding-top: 80px; }
+      .hero-stats { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
+
+      /* project */
+      .project-top { grid-template-columns: 1fr; }
+      .project-info { border-right: none; border-bottom: 1px solid var(--border); }
+      .project-diagram { padding: 1.5rem; }
+
+      /* stack */
+      .stack-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+
+      /* certs */
+      .certs-grid { grid-template-columns: 1fr; }
+
+      /* sections */
+      section { padding: 3.5rem 1rem; }
+      .section-header { margin-bottom: 2rem; }
+
+      /* contact terminal */
+      .contact-terminal { padding: 1.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-actions { flex-direction: column; }
+      .btn { justify-content: center; }
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+      .stat-value { font-size: 1.2rem; }
+      .stack-grid { grid-template-columns: repeat(2, 1fr); }
+      .exp-header { flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="terminal">
-    <p><span class="prompt">sergio@portfolio:~$</span> <span class="command">whoami</span></p>
-    <h1>Sergio Puche</h1>
-    <span class="job-title">ADMINISTRADOR DE SISTEMAS TI | CORREOS EXPRESS</span>
-    <p>Profesional IT especializado en gestión de infraestructuras críticas, virtualización y ciberseguridad. Experto en soluciones Open Source y entornos híbridos para asegurar la continuidad y eficiencia del negocio.</p>
+<!-- ─── NAV ─────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">SP<span>.</span></div>
 
-    <div class="grid">
-        <div class="card">
-            <h3>Hard Skills</h3>
-            <div class="tags-wrapper">
-                <span class="tag">Linux/Windows Server</span> 
-                <span class="tag">VMware</span> 
-                <span class="tag">Hyper-V</span> 
-                <span class="tag">Proxmox</span> 
-                <span class="tag">Citrix</span>
-                <span class="tag">Azure/AWS</span> 
-                <span class="tag">CrowdStrike</span> 
-                <span class="tag">CheckPoint</span> 
-                <span class="tag">Cortex XSIAM</span> 
-                <span class="tag">PowerShell</span>
-            </div>
-        </div>
-        <div class="card">
-            <h3>Soft Skills & Info</h3>
-            <ul>
-                <li>Resolución de incidencias críticas</li>
-                <li>Comunicación técnica efectiva</li>
-                <li>Disponibilidad total y movilidad</li>
-                <li>Inglés: Nivel Medio</li>
-            </ul>
-        </div>
-    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
 
-    <h2 class="section-header">Experiencia Laboral</h2>
-    <div class="card">
-        <span class="date">2024 - Actualmente</span>
-        <h3>Correos Express</h3>
-        <p><strong>Técnico de Infraestructura, DevOps y Ciberseguridad:</strong></p>
-        <ul>
-            <li>Administración de entornos de virtualización y VDI (VMware, Citrix, Hyper-V).</li>
-            <li>Gestión de infraestructura Cloud y entornos híbridos (Azure, AWS, M365).</li>
-            <li>Seguridad perimetral y administración de EDR/IPS (CheckPoint, CrowdStrike).</li>
-            <li>Soporte técnico avanzado y mejora continua de sistemas.</li>
-        </ul>
-    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#proyecto">Proyecto</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#experiencia">Experiencia</a></li>
+      <li><a href="#homelab">Homelab</a></li>
+      <li><a href="#certs">Certificaciones</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
 
-    <h2 class="section-header">Certificaciones Oficiales</h2>
-    <div class="grid">
-        <div class="card">✅ AWS Academy Graduate - Cloud Foundations</div>
-        <div class="card">✅ IBM Cloud Technical Advocate V2</div>
-        <div class="card">✅ Google Cybersecurity Professional</div>
-        <div class="card">✅ Cisco CCNA Fundamentals</div>
-    </div>
+    <div class="nav-status">DISPONIBLE</div>
+  </div>
+</nav>
 
-    <p><span class="prompt">sergio@portfolio:~$</span> <span class="command">cat contact.info</span></p>
-    <p>
-        📍 Madrid | 📧 <a href="mailto:spuchemilan@gmail.com" class="contact-link">spuchemilan@gmail.com</a><br>
-        🔗 <a href="https://www.linkedin.com/in/myspm" target="_blank" class="contact-link">LinkedIn: myspm</a>
+<!-- ─── HERO ─────────────────────────────── -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">SysAdmin · DevSecOps Engineer Jr.</div>
+
+    <h1>Sergio Puche<span class="cursor"></span></h1>
+    <p class="hero-role">$ whoami → infraestructura segura &amp; escalable</p>
+    <p class="hero-desc">
+      Profesional IT transformando <strong>infraestructura legacy</strong> en entornos modernos,
+      seguros y escalables. Especializado en <strong>Zero-Trust Architecture</strong>,
+      orquestación con Kubernetes y seguridad perimetral.
     </p>
-</div>
 
-</body>
-</html>
+    <div class="hero-actions">
+      <a href="/cdn-cgi/l/email-protection#e5968097828c8aa5d7ddd4d7dcd5cb9d9c9f" class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+        Contactar
+      </a>
+      <a href="https://linkedin.com/in/myspm" target="_blank" rel="noopener" class="btn btn-ghost">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-value">4+</span><span class="stat-label">Certificaciones</span></div>
+      <div class="stat"><span class="stat-value">N3</span><span class="stat-label">Nivel soporte</span></div>
+      <div class="stat"><span class="stat-value">99.9%</span><span class="stat-label">Uptime lab</span></div>
+      <div class="stat"><span class="stat-value">0</span><span class="stat-label">Puertos WAN</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROYECTO ──────────────────────────── -->
+<section id="proyecto">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">01 —</span>
+      <h2 class="section-title">Proyecto destacado</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-top">
+        <div class="project-info">
+          <div class="project-label">// SDDC &amp; Zero-Trust Lab</div>
+          <h3 class="project-title">Software-Defined Datacenter</h3>
+          <div class="project-badge">Proyecto activo</div>
+          <p class="project-desc">
+            Entorno de producción empresarial virtualizado sobre Proxmox VE con orquestación
+            Kubernetes, eliminando completamente la exposición de puertos WAN mediante túneles
+            Cloudflare y VPN Mesh. Monitorización con Wazuh SIEM e infraestructura declarativa
+            con Terraform.
+          </p>
+          <div class="tech-tags">
+            <span class="tag">Proxmox VE</span>
+            <span class="tag">Kubernetes</span>
+            <span class="tag">Terraform</span>
+            <span class="tag">Wazuh SIEM</span>
+            <span class="tag">Zabbix</span>
+            <span class="tag">Cloudflare Tunnel</span>
+          </div>
+          <a href="/proyecto.html" class="btn btn-ghost" style="display:inline-flex;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Ver documentación técnica
+          </a>
+        </div>
+
+        <div class="project-diagram">
+          <div class="arch-diagram">
+            <div class="arch-box accent">INTERNET / WAN</div>
+            <div class="arch-arrow">↓ Cloudflare Tunnel ↓</div>
+            <div class="arch-box">Nginx Proxy Manager</div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-root">
+              <div class="arch-root-label">PROXMOX VE HOST</div>
+              <div class="arch-box">Kubernetes</div>
+              <div class="arch-arrow">↓</div>
+              <div class="arch-row">
+                <div class="arch-box">VMs / LXC</div>
+                <div class="arch-box green">Wazuh SIEM</div>
+              </div>
+              <div class="arch-row" style="margin-top:.4rem">
+                <div class="arch-box">Zabbix</div>
+                <div class="arch-box">K3s Cluster</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STACK ─────────────────────────────── -->
+<section id="stack">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">02 —</span>
+      <h2 class="section-title">Stack tecnológico</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="stack-grid">
+      <div class="stack-card"><div class="stack-icon">🐧</div><div class="stack-name">Linux</div><div class="stack-sub">Debian / Alpine</div></div>
+      <div class="stack-card"><div class="stack-icon">🪟</div><div class="stack-name">Windows Server</div><div class="stack-sub">Active Directory</div></div>
+      <div class="stack-card"><div class="stack-icon">☁️</div><div class="stack-name">Proxmox / VMware</div><div class="stack-sub">Virtualización</div></div>
+      <div class="stack-card"><div class="stack-icon">🐳</div><div class="stack-name">Docker &amp; LXC</div><div class="stack-sub">Contenedores</div></div>
+      <div class="stack-card"><div class="stack-icon">☸️</div><div class="stack-name">Kubernetes</div><div class="stack-sub">Orquestación</div></div>
+      <div class="stack-card"><div class="stack-icon">🏗️</div><div class="stack-name">Terraform</div><div class="stack-sub">IaC</div></div>
+      <div class="stack-card"><div class="stack-icon">🛡️</div><div class="stack-name">Wazuh / CrowdStrike</div><div class="stack-sub">Seguridad</div></div>
+      <div class="stack-card"><div class="stack-icon">☁️</div><div class="stack-name">AWS / Azure</div><div class="stack-sub">Cloud</div></div>
+      <div class="stack-card"><div class="stack-icon">🔒</div><div class="stack-name">Nginx Proxy Mgr</div><div class="stack-sub">Proxy inverso</div></div>
+      <div class="stack-card"><div class="stack-icon">🔗</div><div class="stack-name">Cloudflare</div><div class="stack-sub">Tunnel / Zero-Trust</div></div>
+      <div class="stack-card"><div class="stack-icon">📊</div><div class="stack-name">Zabbix</div><div class="stack-sub">Monitorización</div></div>
+      <div class="stack-card"><div class="stack-icon">⚙️</div><div class="stack-name">Bash / PowerShell</div><div class="stack-sub">Scripting</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EXPERIENCIA ───────────────────────── -->
+<section id="experiencia">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">03 —</span>
+      <h2 class="section-title">Experiencia</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="exp-group">
+
+      <!-- Correos Express -->
+      <div class="exp-section-label">Experiencia profesional</div>
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">Correos Express</div>
+            <div class="exp-role">SysAdmin · DevOps Engineer Jr.</div>
+          </div>
+          <div class="exp-date">2024 — Actualidad</div>
+        </div>
+        <div class="exp-items">
+          <div class="exp-item">Administración y mantenimiento de infraestructura crítica multi-sitio sobre Windows Server y Linux: Active Directory, GPOs, DNS, DHCP y servicios de red en entorno distribuido.</div>
+          <div class="exp-item">Gestión de plataforma VDI y entornos híbridos on-premise / cloud, incluyendo aprovisionamiento, monitorización y resolución de incidencias en tiempo real.</div>
+          <div class="exp-item">Implementación y operación de seguridad perimetral con CrowdStrike EDR: despliegue de agentes, gestión de alertas, análisis de comportamiento y respuesta a incidentes.</div>
+          <div class="exp-item">Soporte de nivel N3: diagnóstico y resolución de incidencias complejas sobre infraestructura crítica garantizando cumplimiento de SLA en operaciones 24/7.</div>
+          <div class="exp-item">Automatización de tareas repetitivas y despliegues mediante PowerShell y Bash, reduciendo tiempos de intervención manual en operaciones de sistemas.</div>
+          <div class="exp-item">Coordinación con equipos de red y seguridad para hardening de sistemas, gestión de parches y control de accesos bajo modelo Zero-Trust.</div>
+        </div>
+
+        <!-- Áreas de foco -->
+        <div class="exp-sub-items">
+          <div class="exp-sub-item">
+            <div class="exp-sub-item-title">Infraestructura</div>
+            Windows Server · Linux · AD · GPO · VDI · Hyper-V
+          </div>
+          <div class="exp-sub-item">
+            <div class="exp-sub-item-title">Seguridad</div>
+            CrowdStrike EDR · Zero-Trust · Hardening · Patch Mgmt
+          </div>
+          <div class="exp-sub-item">
+            <div class="exp-sub-item-title">Automatización</div>
+            PowerShell · Bash · Tareas programadas · IaC
+          </div>
+          <div class="exp-sub-item">
+            <div class="exp-sub-item-title">Cloud &amp; Redes</div>
+            Azure AD · AWS · VPN · DNS · Firewall perimetral
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOMELAB ───────────────────────────── -->
+<section id="homelab">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">04 —</span>
+      <h2 class="section-title">Homelab · Proyectos propios</h2>
+      <div class="section-line"></div>
+    </div>
+
+      <div class="exp-card homelab">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">Homelab K3s · DevSecOps Lab</div>
+            <div class="exp-role" style="color:var(--green);">Arquitecto &amp; Operador de infraestructura personal</div>
+          </div>
+          <div class="exp-date">2023 — Actualidad</div>
+        </div>
+        <div class="exp-items">
+          <div class="exp-item">Diseño e implementación de un clúster K3s multi-nodo (control plane + workers con taints/tolerations) simulando un entorno de producción empresarial sobre hardware propio.</div>
+          <div class="exp-item">Pipeline GitOps completo con Gitea como source, ArgoCD como motor de CD y Harbor como registry privado. Auto-sync de aplicaciones mediante manifiestos YAML puros, sin Helm.</div>
+          <div class="exp-item">Despliegue de stack de observabilidad con Prometheus, Loki y Grafana, con alerting vía Telegram para monitorización activa del clúster y sus cargas de trabajo.</div>
+          <div class="exp-item">Exposición segura sin puertos WAN mediante Cloudflare Tunnel y Nginx Proxy Manager, eliminando completamente la superficie de ataque perimetral.</div>
+          <div class="exp-item">Desarrollo y despliegue de aplicaciones propias en producción con FastAPI, PostgreSQL y Redis, gestionando todo el ciclo DevSecOps: código, imagen, despliegue y monitorización.</div>
+        </div>
+
+        <!-- Proyectos del homelab -->
+        <div class="homelab-projects">
+          <div class="homelab-proj">
+            <div class="homelab-proj-name">CyberOps Hub</div>
+            <div class="homelab-proj-desc">Plataforma de threat intelligence · 64 endpoints · integra OTX, Shodan, VirusTotal, AbuseIPDB</div>
+          </div>
+          <div class="homelab-proj">
+            <div class="homelab-proj-name">SigWatch</div>
+            <div class="homelab-proj-desc">Plataforma SIGINT full-stack · captura de red, DNS intel, GeoIP, agentes RPi · Redis Streams</div>
+          </div>
+          <div class="homelab-proj">
+            <div class="homelab-proj-name">ObservaK8s</div>
+            <div class="homelab-proj-desc">Stack de observabilidad nativo K8s · Prometheus · Loki · Grafana · alerting Telegram</div>
+          </div>
+          <div class="homelab-proj">
+            <div class="homelab-proj-name">MailTrace</div>
+            <div class="homelab-proj-desc">Análisis y trazabilidad de correo electrónico · FastAPI · plantilla base del resto de proyectos</div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</section>
+
+<!-- ─── CERTIFICACIONES ───────────────────── -->
+<section id="certs">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">05 —</span>
+      <h2 class="section-title">Certificaciones</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="certs-grid">
+      <div class="cert-card">
+        <div class="cert-logo g">G</div>
+        <div>
+          <div class="cert-name">Cybersecurity Professional</div>
+          <div class="cert-issuer">Google</div>
+        </div>
+        <div class="cert-check">✓</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-logo aws">AWS</div>
+        <div>
+          <div class="cert-name">Cloud Foundations</div>
+          <div class="cert-issuer">Amazon Web Services</div>
+        </div>
+        <div class="cert-check">✓</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-logo ibm">IBM</div>
+        <div>
+          <div class="cert-name">Cloud Advocate V2</div>
+          <div class="cert-issuer">IBM</div>
+        </div>
+        <div class="cert-check">✓</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-logo cisco">C</div>
+        <div>
+          <div class="cert-name">CCNA Fundamentals</div>
+          <div class="cert-issuer">Cisco</div>
+        </div>
+        <div class="cert-check">✓</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACTO ──────────────────────────── -->
+<section id="contacto">
+  <div class="section-inner">
+    <div class="section-header" style="justify-content:center; margin-bottom:1.5rem;">
+      <h2 class="section-title">Hablemos.</h2>
+    </div>
+    <p style="color:var(--text-secondary); font-size:.95rem; max-width:420px; margin:0 auto 1.5rem;">
+      ¿Tienes un proyecto, una oferta o simplemente quieres conectar? Estoy disponible.
+    </p>
+
+    <div class="contact-terminal">
+      <div class="terminal-bar">
+        <div class="terminal-dot red"></div>
+        <div class="terminal-dot yellow"></div>
+        <div class="terminal-dot green"></div>
+      </div>
+      <div class="terminal-line"><span class="prompt">sergio@lab</span>:~$ <span class="cmd">cat contact.json</span></div>
+      <div class="terminal-line" style="margin-top:.4rem">
+        {<br>
+        &nbsp;&nbsp;<span class="out">"email"</span>: "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="55263027323c3a15676d64676c657b2d2c2f">[email&#160;protected]</a>",<br>
+        &nbsp;&nbsp;<span class="out">"linkedin"</span>: "linkedin.com/in/myspm",<br>
+        &nbsp;&nbsp;<span class="out">"status"</span>: <span style="color:var(--green)">"disponible"</span><br>
+        }
+      </div>
+    </div>
+
+    <div class="contact-actions">
+      <a href="/cdn-cgi/l/email-protection#95e6f0e7f2fcfad5a7ada4a7aca5bbedecef" class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+        Enviar email
+      </a>
+      <a href="https://linkedin.com/in/myspm" target="_blank" rel="noopener" class="btn btn-ghost">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────── -->
+<footer>
+  <span>Sergio Puche</span> © 2026 ·
+  Infraestructura desplegada con Terraform · Secured by Wazuh ·
+  <span>portfolio.281290.xyz</span>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Mobile nav toggle
+  const toggle = document.getElementById('navToggle');
+  const links  = document.getElementById('navLinks');
+
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    links.classList.toggle('open');
+  });
+
+  // Close on link click
+  links.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      toggle.classList.remove('open');
+      links.classList.remove('open');
+    });
+  });
+
+  // Scroll-based nav active state
+  const sections = document.querySelectorAll('section[id]');
+  const navAs = document.querySelectorAll('.nav-links a');
